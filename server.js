@@ -9,7 +9,7 @@ app.configure(function () {
     app.use(express.bodyParser());
 });
 
-app.get('/tours', wine.findAll);
+app.get('/tours', tour.findAll);
 app.get('/tours/:id', tour.findById);
 
 app.listen(process.env.PORT || 5000)
