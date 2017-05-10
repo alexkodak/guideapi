@@ -4,17 +4,16 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-//var server = new Server('localhost', 27017, {auto_reconnect: true});
 var server = new Server(process.env.MONGODB_URI);
-db = new Db('tourdb', server);
+db = new Db('guidebot', server);
 
 
 db.open(function(err, db) {
     if(!err) {
-        console.log("Connected to 'tourdb' database");
+        console.log("Connected to 'guidebot' database");
         db.collection('tours', {strict:true}, function(err, collection) {
             if (err) {
-                console.log("The 'tours' collection doesn't exist. Creating it with sample data...");
+                console.log("The 'tours' collection doesn't exist.");
                 }
         });
     }
