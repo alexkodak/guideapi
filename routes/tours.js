@@ -4,7 +4,8 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var server = new Server(process.env.MONGODB_URI);
+
+var server = new Server('mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461', {auto_reconnect: true});
 db = new Db('guidebot', server);
 
 
