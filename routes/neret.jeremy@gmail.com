@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot';
+var mongoDB = 'process.env.MONGODB_URI';
 
 mongoose.connect(mongoDB);
 
@@ -16,16 +16,6 @@ var ToursSchema = mongoose.Schema({
 	Description: String
 });
 
-/*
-exports.find = function(req, res) {
-	var Tours = mongoose.model('Tours', ToursSchema);
-	
-	Tours.find(function (err, tours) {
-  if (err) return console.error(err);
-  console.log(tours);
-})
-};
-*/
 
 
 exports.find = function(req, res) {
