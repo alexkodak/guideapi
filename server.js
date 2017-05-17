@@ -1,7 +1,6 @@
 var express = require('express'),
-    tour = require('./routes/tours');
+	tours = require('./routes/tours');
 	
-
 var app = express();
 
 app.configure(function () {
@@ -9,8 +8,14 @@ app.configure(function () {
     app.use(express.bodyParser());
 });
 
-app.get('/tours', tour.findAll);
-app.get('/tours/:id', tour.findById);
+app.get('/tours', tours.find);
+app.get('/tours/:id', tours.findById);
 
+/*
+
+app.post('/tours', tours.addTour);
+app.put('/tours/:id', tours.updateTour);
+app.delete('/tours/:id', tours.deleteTour);
+*/
 app.listen(process.env.PORT || 5000)
 console.log('Listening on port 5000...');

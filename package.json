@@ -7,7 +7,6 @@
     "express": "3.x",
     "mongodb": "^2.2.26",
     "mongodb-core": "^2.1.10",
-    "mongoose": "^4.9.7"
+    "mongoose": "^4.9.9"
   }
-
 }

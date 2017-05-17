@@ -1,41 +1,47 @@
-var mongo = require('mongodb');
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot';
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+mongoose.connect(mongoDB);
 
-	
-var server = new Server(process.env.MONGODB_URI, 27017, {auto_reconnect: true});
-db = new Db('guidebot', server);
-
-
-db.open(function(err, db) {
-    if(!err) {
-        console.log("Connected to 'guidebot' database");
-        db.collection('tours', {strict:true}, function(err, collection) {
-            if (err) {
-                console.log("The 'tours' collection doesn't exist.");
-                }
-        });
-    }
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
 });
 
 
-exports.findById = function(req, res) {
-    var id = req.params.id;
-    console.log('Retrieving tour: ' + id);
-    db.collection('tours', function(err, collection) {
-       /* collection.findOne({'_id':new mongo.ObjectID(id)}, function(err, item) { */
-	   collection.findOne({ }, { tour: 1, language: 1 }, function(err, item) {
+var ToursSchema = mongoose.Schema({
+    tour: String,
+	language: String,
+	Description: String
+});
+
+/*
+exports.find = function(req, res) {
+	var Tours = mongoose.model('Tours', ToursSchema);
+	
+	Tours.find(function (err, tours) {
+  if (err) return console.error(err);
+  console.log(tours);
+})
+};
+*/
+
+
+exports.find = function(req, res) {
+	var Tours = mongoose.model('Tours', ToursSchema);
+	     Tours.find({ }, { tour: 1, language: 1, description: 1 }, function(err, item) {
             res.send(item);
         });
-    });
+
 };
 
-exports.findAll = function(req, res) {
-    db.collection('tours', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            res.send(items);
+
+
+exports.findById = function(req, res) {
+	var Tours = mongoose.model('Tours', ToursSchema);
+	     Tours.findOne({ }, { tour: 1, language: 1, description: 1 }, function(err, item) {
+            res.send(item);
         });
-    });
+
 };

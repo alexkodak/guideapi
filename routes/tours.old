@@ -1,0 +1,89 @@
+var mongo = require('mongodb');
+
+var Server = mongo.Server,
+    Db = mongo.Db,
+    BSON = mongo.BSONPure;
+
+	
+var server = new Server('mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot', 27017, {auto_reconnect: true});
+db = new Db('guidebot', server);
+
+
+db.open(function(err, db) {
+    if(!err) {
+        console.log("Connected to 'guidebot' database");
+        db.collection('tours', {strict:true}, function(err, collection) {
+            if (err) {
+                console.log("The 'tours' collection doesn't exist.");
+                }
+        });
+    }
+});
+
+
+exports.findById = function(req, res) {
+    var id = req.params.id;
+    console.log('Retrieving tour: ' + id);
+    db.collection('tours', function(err, collection) {
+       /* collection.findOne({'_id':new mongo.ObjectID(id)}, function(err, item) { */
+	   collection.findOne({ }, { tour: 1, language: 1 }, function(err, item) {
+            res.send(item);
+        });
+    });
+};
+
+exports.findAll = function(req, res) {
+    db.collection('tours', function(err, collection) {
+        collection.find().toArray(function(err, items) {
+            res.send(items);
+        });
+    });
+};
+
+exports.addTour = function(req, res) {
+    var tour = req.body;
+    console.log('Adding tour: ' + JSON.stringify(tour));
+    db.collection('tours', function(err, collection) {
+        collection.insert(tour, {safe:true}, function(err, result) {
+            if (err) {
+                res.send({'error':'An error has occurred'});
+            } else {
+                console.log('Success: ' + JSON.stringify(result[0]));
+                res.send(result[0]);
+            }
+        });
+    });
+}
+
+exports.updateTour = function(req, res) {
+    var id = req.params.id;
+    var tour = req.body;
+    console.log('Updating tour: ' + id);
+    console.log(JSON.stringify(tour));
+    db.collection('tours', function(err, collection) {
+        collection.update({'_id':new BSON.ObjectID(id)}, tour, {safe:true}, function(err, result) {
+            if (err) {
+                console.log('Error updating tour: ' + err);
+                res.send({'error':'An error has occurred'});
+            } else {
+                console.log('' + result + ' document(s) updated');
+                res.send(tour);
+            }
+        });
+    });
+}
+
+exports.deleteTour = function(req, res) {
+    var id = req.params.id;
+    console.log('Deleting tour: ' + id);
+    db.collection('tours', function(err, collection) {
+        collection.remove({'_id':new BSON.ObjectID(id)}, {safe:true}, function(err, result) {
+            if (err) {
+                res.send({'error':'An error has occurred - ' + err});
+            } else {
+                console.log('' + result + ' document(s) deleted');
+                res.send(req.body);
+            }
+        });
+    });
+}
