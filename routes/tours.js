@@ -19,7 +19,7 @@ var ToursSchema = mongoose.Schema({
 
 exports.find = function(req, res) {
 	var Tours = mongoose.model('Tours', ToursSchema);
-	     Tours.find({ }, { tour: 2, language: 1, description: 1 }, function(err, item) {
+	     Tours.find({ }, { tour: 1, language: 1, description: 1 }, function(err, item) {
             res.send(item);
         });
 
@@ -29,7 +29,7 @@ exports.find = function(req, res) {
 
 exports.findById = function(req, res) {
 	var Tours = mongoose.model('Tours', ToursSchema);
-	     Tours.findOne({ }, { tour: 1, language: 1, description: 1 }, function(err, item) {
+	     Tours.findOne({ }, { tour: 2, language: 1, description: 1 }, function(err, item) {
             res.send(item);
         });
 
