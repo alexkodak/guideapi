@@ -29,10 +29,10 @@ exports.find = function(req, res) {
 
 exports.findById = function(req, res) {
 	var Tours = mongoose.model('Tours', ToursSchema);
-	     Tours.findOne({ }, { tour: 1, language: 1, description: 1 }, function(err, item) {
+	var id = req.params.id;
+    console.log('Retrieving tour: ' + id);
+	     Tours.findOne({ _id: req.params.id }, { tour: 1, language: 1, description: 1 }, function(err, item) {
             res.send(item);
         });
 
 };
-
-mongoose.disconnect(mongoDB);
