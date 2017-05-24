@@ -9,7 +9,7 @@ app.configure(function () {
 });
 
 app.get('/tours', tours.find);
-app.get('/tours/:id', tours.findById);
+app.get('/tours/:id', tours.findbyId);
 
 /*
 
