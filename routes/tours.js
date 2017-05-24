@@ -31,7 +31,7 @@ exports.findById = function(req, res) {
 	var Tours = mongoose.model('Tours', ToursSchema);
 	var id = req.params.id;
     console.log('Retrieving tour: ' + id);
-	     Tours.findOne({ _id: req.params.id }, { tour: 1, language: 1, description: 1 }, function(err, item) {
+	     Tours.findOne({ tour: req.params.id }, { tour: 1, language: 1, description: 1 }, function(err, item) {
             res.send(item);
         });
 
