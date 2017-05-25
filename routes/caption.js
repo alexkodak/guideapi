@@ -11,7 +11,7 @@ db.once('open', function() {
 
 
 var CaptionsSchema = mongoose.Schema({
-    tour: String,
+    tour: Number,
     caption: Number,
     room: String,
     description: String
