@@ -1,5 +1,5 @@
 var express = require('express'),
-	tours = require('./routes/tours');
+    tours = require('./routes/tours');
 	
 var app = express();
 
@@ -9,7 +9,7 @@ app.configure(function () {
 });
 
 app.get('/tours', tours.find);
-app.get('/tours/:id', tours.findbyId);
+app.get('/tours/:tour', tours.findbyId);
 
 /*
 

@@ -11,7 +11,7 @@ db.once('open', function() {
 
 
 var ToursSchema = mongoose.Schema({
-    tour: String,
+    tour: Number,
     language: String,
     Description: String
 });
@@ -29,13 +29,15 @@ exports.find = function(req, res) {
 
 exports.findbyId = function(req, res) {
 	var Tours = mongoose.model('Tours', ToursSchema);
-	var id = req.params.id;
-    console.log('Retrieving tour: ' + id);
-	
-    
-      
-           Tours.find({ 'tour': req.params.id }, {_id:1, tour: 1, language: 1, description: 1 }, function(err, tour) {     
-                res.send(tour);
-        });
-
-}; */
+        var id = req.params.tour
+        console.log("Looking for tour:"+ id);
+	Tours.find({ tour: req.params.tour },{ tour: 1, language: 1, description: 1 }, function(err, docs) {     
+         if (err) {
+                res.render('error', {
+                    status: 500
+                });
+            } else {
+                res.send(docs);
+            }
+             });
+};
