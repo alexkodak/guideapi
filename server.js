@@ -1,5 +1,6 @@
 var express = require('express'),
     tours = require('./routes/tours');
+    captions = require('./routes/captions');
 	
 var app = express();
 
