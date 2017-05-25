@@ -37,7 +37,7 @@ exports.findbyId = function(req, res) {
                     status: 500
                 });
             } else {
-                res.send(docs);
+                res.json(docs);
             }
              });
 };
