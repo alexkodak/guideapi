@@ -11,8 +11,9 @@ db.once('open', function() {
 
 
 var CaptionsSchema = mongoose.Schema({
-    tour: Number,
-    caption: Number,
+    tour_id: String,
+    tour: String,
+    caption: String,
     room: String,
     description: String
 });
@@ -31,8 +32,8 @@ exports.find = function(req, res) {
 exports.findbyId = function(req, res) {
 	var Captions = mongoose.model('Captions', CaptionsSchema);
         var id = req.params.caption
-        console.log("Looking for caption:"+ id);
-	Captions.findOne({ tour: id }, { tour: 1, caption: 1, room: 1, description: 1 }, function(err, item) {
+        console.log("Looking for caption: "+ id);
+	Captions.findOne({ caption: id }, { tour: 1, caption: 1, room: 1, description: 1 }, function(err, item) {
             res.send(item);
         });
 
