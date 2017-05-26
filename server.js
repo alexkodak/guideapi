@@ -12,8 +12,8 @@ app.configure(function () {
 app.get('/tours', tours.find);
 app.get('/tours/:tour', tours.findbyId);
 
-app.get('/captions', captions.find);
-app.get('/captions/:caption', captions.findbyId);
+app.get('/captions/:tour', captions.find);
+app.get('/captions/:tour/:caption', captions.findbyId);
 
 /*
 
