@@ -1,6 +1,7 @@
 var express = require('express'),
     tours = require('./routes/tours');
     captions = require('./routes/captions');
+	inputs = require('./routes/inputs');
 	
 var app = express();
 
@@ -14,6 +15,8 @@ app.get('/tours/:tour', tours.findbyId);
 
 app.get('/captions/:tour', captions.find);
 app.get('/captions/:tour/:caption', captions.findbyId);
+
+app.get('/inputs/:user', inputs.findbyId);
 
 /*
 
