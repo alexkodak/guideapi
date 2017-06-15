@@ -26,7 +26,7 @@ exports.findbyId = function(req, res) {
 	var Inputs = mongoose.model('Inputs', InputSchema);
         var id = req.params.user
         console.log("Looking for user: "+ id);
-	Inputs.findOne({ user: id }, { tour: 1 }, function(err, item) {
+	Inputs.findOne({ user_id: id }, { tour: 1 }, function(err, item) {
             res.send(item);
         });
 
