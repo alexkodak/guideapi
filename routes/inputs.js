@@ -27,7 +27,9 @@ exports.findbyId = function(req, res) {
         var id = req.params.user
         console.log("Looking for user: "+ id);
 	Inputs.findOne({ user_id: id }, { tour: 1 }, function(err, item) {
-            res.send(item);
+    if (err){res.send(err)};
+    else {res.send(item);}
+            
         });
 
 };
