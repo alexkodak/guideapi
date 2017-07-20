@@ -17,13 +17,12 @@ var roomSchema = mongoose.Schema({
 
 
 exports.find = function(req, res) {
-	var Rooms = mongoose.model('roomlist', ToursSchema);
+	var Rooms = mongoose.model('roomlist', roomSchema);
 	     Rooms.find({ }, { roomNumber: 1, roomName: 1 }, function(err, item) {
             res.send(item);
         });
 
 };
-
 
 
 exports.findbyId = function(req, res) {
