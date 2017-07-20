@@ -30,8 +30,7 @@ exports.findbyId = function(req, res) {
         var id = req.params.room
         console.log("Looking for room: "+ id);
 	Rooms.findOne({ roomnumber: id }, { roomnumber: 1, roomname: 1 }, function(err, item) {
-		console.log("found room: "+ roomname);
-            res.send(item);
+		res.send(item);
         });
 
 };
