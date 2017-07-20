@@ -27,7 +27,7 @@ exports.find = function(req, res) {
 
 
 exports.findbyId = function(req, res) {
-	var Rooms = mongoose.model('roomlist', ToursSchema);
+	var Rooms = mongoose.model('roomlist', roomSchema);
         var id = req.params.room
         console.log("Looking for room: "+ id);
 	Rooms.findOne({ room: id }, { roomNumber: 1, roomName: 1 }, function(err, item) {
