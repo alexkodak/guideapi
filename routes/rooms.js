@@ -10,14 +10,14 @@ db.once('open', function() {
 });
 
 
-var roomSchema = mongoose.Schema({
+var RoomSchema = mongoose.Schema({
     roomnumber: String,
     roomname: String
   });
 
 
 exports.find = function(req, res) {
-	var Rooms = mongoose.model('roomlist', roomSchema);
+	var Rooms = mongoose.model('roomlist', RoomSchema);
 	     Rooms.find({ }, { roomnumber: 1, roomname: 1 }, function(err, item) {
             res.send(item);
         });
@@ -26,7 +26,7 @@ exports.find = function(req, res) {
 
 
 exports.findbyId = function(req, res) {
-	var Rooms = mongoose.model('roomlist', roomSchema);
+	var Rooms = mongoose.model('roomlist', RoomSchema);
         var id = req.params.room
         console.log("Looking for room: "+ id);
 	Rooms.findOne({ roomnumber: id }, { roomnumber: 1, roomname: 1 }, function(err, item) {
